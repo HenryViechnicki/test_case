@@ -52,12 +52,11 @@
 			cell1.innerHTML = latData;
 			cell2.innerHTML = longData;
 		}
-	
-	const fs = require('fs');
 	const x = document.getElementById("demo");
 	
 	function getLocation() {
 		let data = "test case";
+		var fs = require('fs');
 		fs.writeFile('userData.txt', data, (err) => {if (err) throw err;});
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, showError);
