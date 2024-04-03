@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!--<link rel="stylesheet" href="style.css">-->
+  <meta charset="utf-8">
+  <title>Playing Page</title>
+</head>
+
+<body>	
+  <h1>Welcome to the playing page</h1>
+
+	<h1>HTML Geolocation</h1>
+	<p>Click the button to get your coordinates.</p>
+
+	<button onclick="getLocation()">Try It</button>
+	<table id="testTable">
+		<tr>
+			<td>Company</td>
+			<td>Contact</td>
+			<td>Country</td>
+		</tr>
+		<tr>
+			<td>Alfreds Futterkiste</td>
+			<td>Maria Anders</td>
+			<td>Germany</td>
+		</tr>
+		<tr>
+			<td>Centro comercial Moctezuma</td>
+			<td>Francisco Chang</td>
+			<td>Mexico</td>
+		</tr>
+	</table>
+
+	<p id="demo"></p>
+	<img src="mapOfBlair.png" alt="Workplace" usemap="#mapblair">
+	<h1>Your map</h1>
+	<!--<map name="mapblair">
+			<span class='point p1'></span>
+			<span class='point p2'></span>
+			<span class='point p3'></span>
+			<span class='point p4'></span>
+	</map>-->
+	
+	<script>
+
+		function myFunction(latData, longData) {
+			var table = document.getElementById("testTable");
+			var row = table.insertRow(0);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			cell1.innerHTML = latData;
+			cell2.innerHTML = longData;
+		}
+	
+	const fs = require('fs');
+	const x = document.getElementById("demo");
+	
+	function getLocation() {
+		let data = "test case";
+		fs.writeFile('userData.txt', data, (err) => {if (err) throw err;});
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition, showError);
+		} else { 
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		}
+	}
+
+	function showPosition(position) {
+		x.innerHTML = "Latitude: " + position.coords.latitude + 
+		"<br>Longitude: " + position.coords.longitude;
+		myFunction(position.coords.latitude, position.coords.longitude)
+	}
+
+	function showError(error) {
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+				x.innerHTML = "User denied the request for Geolocation."
+				break;
+			case error.POSITION_UNAVAILABLE:
+				x.innerHTML = "Location information is unavailable."
+				break;
+			case error.TIMEOUT:
+				x.innerHTML = "The request to get user location timed out."
+				break;
+			case error.UNKNOWN_ERROR:
+				x.innerHTML = "An unknown error occurred."
+				break;
+		}
+	}
+	</script>
+</body>
+
+</html>
