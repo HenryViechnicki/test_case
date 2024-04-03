@@ -57,7 +57,7 @@
 	function getLocation() {
 		let data = "test case";
 		var fs = require('fs');
-		fs.writeFile('userData.txt', data, (err) => {if (err) throw err;});
+		fs.writeFile('user_data.txt', data, (err) => {if (err) throw err;});
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, showError);
 		} else { 
